@@ -7,4 +7,4 @@ TODO
     - Tekton
     - Renovate
     - Tekline
-    
+- Externalize the configuration for the application from the Azure Demo. 
