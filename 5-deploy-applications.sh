@@ -26,4 +26,7 @@ kubectl apply -k ../renovate-tekton-argo-talk/k8s/traefik/
 kubectl apply -k ../renovate-tekton-argo-talk/k8s/certmanager/
 kubectl apply -k ../renovate-tekton-argo-talk/k8s/certmanager/
 
-kubectl apply -k https://github.com/pietervincken/renovate-talk-java-demo-app-deploy.git//kustomize
+kubectl apply -k ../renovate-tekton-argo-talk/k8s/argocd # first attempt will fail due to missing crds
+kubectl apply -k ../renovate-tekton-argo-talk/k8s/argocd
+
+# kubectl apply -k k8s/demo-app

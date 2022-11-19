@@ -13,5 +13,6 @@ provider "aws" {
 }
 
 locals {
-  name = "renovate-talk"
+  name   = "renovate-talk"
+  region = "eu-west-1"
 }
