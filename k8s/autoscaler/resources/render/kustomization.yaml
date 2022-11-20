@@ -1,9 +1,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- cluster-autoscaler-ClusterRole.yml
-- cluster-autoscaler-ClusterRoleBinding.yml
-- cluster-autoscaler-Deployment.yml
-- cluster-autoscaler-Role.yml
-- cluster-autoscaler-RoleBinding.yml
-- cluster-autoscaler-ServiceAccount.yml
+- autoscaler-aws-cluster-autoscaler-ClusterRole.yml
+- autoscaler-aws-cluster-autoscaler-ClusterRoleBinding.yml
+- autoscaler-aws-cluster-autoscaler-Deployment.yml
+- autoscaler-aws-cluster-autoscaler-PodDisruptionBudget.yml
+- autoscaler-aws-cluster-autoscaler-Role.yml
+- autoscaler-aws-cluster-autoscaler-RoleBinding.yml
+- autoscaler-aws-cluster-autoscaler-Service.yml
+- autoscaler-aws-cluster-autoscaler-ServiceAccount.yml

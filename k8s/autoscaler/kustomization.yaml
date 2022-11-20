@@ -6,5 +6,10 @@ resources:
 patches:
   - target:
       kind: Deployment
-      name: cluster-autoscaler
+      name: autoscaler-aws-cluster-autoscaler
     path: patches/deployment-clusterid.yaml
+
+  - path: patches/sa-arn.yaml
+    target:
+      kind: ServiceAccount
+      name: autoscaler-aws-cluster-autoscaler

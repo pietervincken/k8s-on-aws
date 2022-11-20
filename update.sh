@@ -14,6 +14,7 @@ get_latest_release() {
 # helm repo add traefik https://traefik.github.io/charts
 # helm repo add external-secrets https://charts.external-secrets.io
 # helm repo add grafana https://grafana.github.io/helm-charts
+# helm repo add autoscaler https://kubernetes.github.io/autoscaler
 # helm repo update
 
 cd k8s/external-secrets-operator
@@ -87,14 +88,25 @@ kustomize edit set image k8s.gcr.io/external-dns/external-dns:$externalDNSOperat
 cd ../../
 echo "Upgraded external-dns to $externalDNSOperatorVersion"
 
+if [ -z $AWS_REGION ]; then
+    echo "Could not find AWS_REGION. Stopping!"
+    exit 1
+fi
+
 cd k8s/autoscaler/
 rm -rf resources/render
 mkdir -p resources/render
-curl -sL https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml | yq -s '"resources/render/" + .metadata.name + "-" + .kind + ".yml"' -
+# curl -sL https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml | yq -s '"resources/render/" + .metadata.name + "-" + .kind + ".yml"' -
+helm template autoscaler autoscaler/cluster-autoscaler \
+  -n kube-system \
+  --set autoDiscovery.clusterName=test \
+  --set awsRegion=$AWS_REGION | yq -s '"resources/render/" + .metadata.name + "-" + .kind + ".yml"' -
 cd resources/render/
 kustomize create app --recursive --autodetect
 cd ../../../..
 echo "Upgraded autoscaler"
+
+
 
 # Cleanup
 rm -rf $tempdir

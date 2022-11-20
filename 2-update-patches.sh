@@ -23,3 +23,12 @@ if [ -z $eks_name ]; then
     exit 1
 fi
 yq -i ".[0].value |= \"--node-group-auto-discovery=asg:tag=k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/$eks_name\"" k8s/autoscaler/patches/deployment-clusterid.yaml
+
+## Set eks name on autoscaler patch
+cluster_autoscaler_iam_role=$(cat terraform/output.json| jq --raw-output '.cluster_autoscaler_iam_role.value')
+if [ -z $cluster_autoscaler_iam_role ]; then
+    echo "Could not find cluster_autoscaler_iam_role. Stopping!"
+    exit 1
+fi
+yq -i ".[0].value |= \"$cluster_autoscaler_iam_role\"" k8s/autoscaler/patches/sa-arn.yaml 
+
