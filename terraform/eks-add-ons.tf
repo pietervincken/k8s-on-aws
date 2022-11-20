@@ -1,24 +1,26 @@
-# module "cert_manager_irsa_role" {
-#   source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+module "cert_manager_irsa_role" {
+  source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
 
-#   role_name                     = "cert-manager"
-#   attach_cert_manager_policy    = true
-#   cert_manager_hosted_zone_arns = ["arn:aws:route53:::hostedzone/IClearlyMadeThisUp"]
+  role_name                     = "${local.name}-cert-manager"
+  attach_cert_manager_policy    = true
+  cert_manager_hosted_zone_arns = [aws_route53_zone.main.arn]
 
-#   oidc_providers = {
-#     ex = {
-#       provider_arn               = module.eks.oidc_provider_arn
-#       namespace_service_accounts = ["kube-system:cert-manager"]
-#     }
-#   }
+  oidc_providers = {
+    ex = {
+      provider_arn               = module.eks.oidc_provider_arn
+      namespace_service_accounts = ["cert-manager:cert-manager"]
+    }
+  }
+}
 
-#   tags = local.tags
-# }
+output "cert_manager_iam_role" {
+  value = module.cert_manager_irsa_role.iam_role_arn
+}
 
 module "cluster_autoscaler_irsa_role" {
   source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
 
-  role_name                        = "cluster-autoscaler"
+  role_name                        = "${local.name}-cluster-autoscaler"
   attach_cluster_autoscaler_policy = true
   cluster_autoscaler_cluster_ids   = [module.eks.cluster_id]
 
