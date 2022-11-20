@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- cluster-autoscaler-ClusterRole.yml
+- cluster-autoscaler-ClusterRoleBinding.yml
+- cluster-autoscaler-Deployment.yml
+- cluster-autoscaler-Role.yml
+- cluster-autoscaler-RoleBinding.yml
+- cluster-autoscaler-ServiceAccount.yml

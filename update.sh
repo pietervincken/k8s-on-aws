@@ -61,20 +61,20 @@ echo "Upgraded external-secrets-operator"
 # cd ../../../..
 # echo "Upgraded certmanager to $certManagerVersion"
 
-cd k8s/traefik
-rm -rf resources/render/
-mkdir -p resources/render
-helm template traefik traefik/traefik \
-  -n traefik \
-  --set globalArguments= \
-  --set providers.kubernetesIngress.publishedService.enabled=true \
-  | yq -s '"resources/render/" + .metadata.name + "-" + .kind + ".yml"' -
-curl -sL https://raw.githubusercontent.com/traefik/traefik/master/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml  | yq -s '"resources/render/" + .metadata.name + "-" + .kind + ".yml"' -
-curl -sL https://raw.githubusercontent.com/traefik/traefik/master/docs/content/reference/dynamic-configuration/kubernetes-crd-rbac.yml | yq -s '"resources/render/" + .metadata.name + "-" + .kind + ".yml"' -
-cd resources/render/
-kustomize create app --recursive --autodetect
-cd ../../../..
-echo "Upgraded traefik"
+# cd k8s/traefik
+# rm -rf resources/render/
+# mkdir -p resources/render
+# helm template traefik traefik/traefik \
+#   -n traefik \
+#   --set globalArguments= \
+#   --set providers.kubernetesIngress.publishedService.enabled=true \
+#   | yq -s '"resources/render/" + .metadata.name + "-" + .kind + ".yml"' -
+# curl -sL https://raw.githubusercontent.com/traefik/traefik/master/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml  | yq -s '"resources/render/" + .metadata.name + "-" + .kind + ".yml"' -
+# curl -sL https://raw.githubusercontent.com/traefik/traefik/master/docs/content/reference/dynamic-configuration/kubernetes-crd-rbac.yml | yq -s '"resources/render/" + .metadata.name + "-" + .kind + ".yml"' -
+# cd resources/render/
+# kustomize create app --recursive --autodetect
+# cd ../../../..
+# echo "Upgraded traefik"
 
 cd k8s/external-dns/
 externalDNSOperatorVersion=$(get_latest_release "kubernetes-sigs/external-dns")
@@ -86,6 +86,15 @@ cp -R $tempdir/externaldns/kustomize/* resources/render
 kustomize edit set image k8s.gcr.io/external-dns/external-dns:$externalDNSOperatorVersion 
 cd ../../
 echo "Upgraded external-dns to $externalDNSOperatorVersion"
+
+cd k8s/autoscaler/
+rm -rf resources/render
+mkdir -p resources/render
+curl -sL https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml | yq -s '"resources/render/" + .metadata.name + "-" + .kind + ".yml"' -
+cd resources/render/
+kustomize create app --recursive --autodetect
+cd ../../../..
+echo "Upgraded autoscaler"
 
 # Cleanup
 rm -rf $tempdir

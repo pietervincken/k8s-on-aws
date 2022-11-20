@@ -10,3 +10,5 @@ aws s3 rm s3://$bucketname --recursive
 
 aws cloudformation delete-stack \
     --stack-name renovatetalkstate
+
+rm -rf terraform/.terraform terraform/.terraform.lock.hcl
