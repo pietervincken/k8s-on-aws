@@ -22,11 +22,5 @@ kubectl apply -k k8s/external-secrets-operator
 
 kubectl apply -k k8s/external-dns
 
-kubectl apply -k k8s/certmanager/
-kubectl apply -k k8s/certmanager/
-
-kubectl apply -k ../renovate-tekton-argo-talk/k8s/traefik/
-kubectl apply -k ../renovate-tekton-argo-talk/k8s/traefik/
-
 kubectl apply -k ../renovate-tekton-argo-talk/k8s/argocd # first attempt will fail due to missing crds
 kubectl apply -k ../renovate-tekton-argo-talk/k8s/argocd
