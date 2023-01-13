@@ -47,3 +47,11 @@ if [ -z $ebs_csi_iam_role ]; then
     exit 1
 fi
 yq -i ".[0].value |= \"$ebs_csi_iam_role\"" k8s/aws-ebs-csi-driver/patches/sa-arn.yaml 
+
+## Set IAM role on tekline patch
+tekline_iam_role=$(cat terraform/output.json| jq --raw-output '.tekline_iam_role.value')
+if [ -z $tekline_iam_role ]; then
+    echo "Could not find tekline_iam_role. Stopping!"
+    exit 1
+fi
+yq -i ".metadata.annotations.[\"eks.amazonaws.com/role-arn\"] |= \"$tekline_iam_role\"" k8s/tekline/patches/sa.yaml 

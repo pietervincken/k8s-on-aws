@@ -1,5 +1,7 @@
 resource "aws_route53_zone" "main" {
   name = "renovate-talk.pietervincken.com"
+
+  force_destroy = true
 }
 
 resource "aws_iam_policy" "external_dns_operator" {
