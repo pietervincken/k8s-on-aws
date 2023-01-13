@@ -9,3 +9,10 @@ configMapGenerator:
     files:
       - patches/sa.yaml
     behavior: replace
+
+patches:
+  - target:
+      name: delegate-pipeline
+      kind: Pipeline
+      group: tekton.dev
+    path: patches/delegate-pipeline-registry.yaml
