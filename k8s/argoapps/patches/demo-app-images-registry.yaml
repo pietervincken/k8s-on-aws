@@ -1,0 +1,5 @@
+- op: add
+  path: /spec/source/kustomize
+  value:
+    images:
+      - renovate-talk-java-demo-app=930970667460.dkr.ecr.eu-west-1.amazonaws.com/renovate-talk-java-demo-app

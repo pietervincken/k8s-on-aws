@@ -63,3 +63,6 @@ if [ -z $ecr_repo_url ]; then
     exit 1
 fi
 yq -i ".[0].value |= \"$ecr_repo_url\"" k8s/tekline/patches/delegate-pipeline-registry.yaml
+
+## Set ecr repository url in demo-app
+yq -i ".[0].value.images.[0] |= \"renovate-talk-java-demo-app=$ecr_repo_url/renovate-talk-java-demo-app\"" k8s/argoapps/patches/demo-app-images-registry.yaml

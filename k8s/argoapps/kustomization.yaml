@@ -10,5 +10,13 @@ resources:
   - resources/tekline-argoapp.yaml
   - resources/tekton-argoapp.yaml
   - resources/traefik-argoapp.yaml
+  - https://github.com/pietervincken/renovate-talk-java-demo-app-deploy.git//argocd?ref=main
 
 namespace: argocd
+
+patches:
+  - target:
+      name: demo-java-app
+      group: argoproj.io
+      kind: Application
+    path: patches/demo-app-images-registry.yaml
