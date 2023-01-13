@@ -4,8 +4,8 @@ kind: Kustomization
 resources:
   - https://github.com/pietervincken/renovate-tekton-argo-talk.git//k8s/tekline?ref=main
 
-patches:
-  - target:
-      kind: ServiceAccount
-      name: tekline
-    path: patches/sa-arn.yaml
+configMapGenerator:
+  - name: create-namespace-scripts
+    files:
+      - sa.yaml
+    behavior: replace
