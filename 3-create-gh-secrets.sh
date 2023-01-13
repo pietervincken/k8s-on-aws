@@ -43,11 +43,11 @@ else
 fi
 
 # Since this is a personal token. Wait until needed. 
-# if ( aws secretsmanager describe-secret --secret-id github-pat --no-cli-pager > /dev/null 2> /dev/null); then
-#     aws secretsmanager put-secret-value --secret-id github-pat --no-cli-pager --secret-string $githubpat > /dev/null
-# else
-#     aws secretsmanager create-secret --name github-pat --no-cli-pager --secret-string $githubpat > /dev/null
-# fi
+if ( aws secretsmanager describe-secret --secret-id github-pat --no-cli-pager > /dev/null 2> /dev/null); then
+    aws secretsmanager put-secret-value --secret-id github-pat --no-cli-pager --secret-string $githubpat > /dev/null
+else
+    aws secretsmanager create-secret --name github-pat --no-cli-pager --secret-string $githubpat > /dev/null
+fi
 
 if ( aws secretsmanager describe-secret --secret-id github-trigger-secret --no-cli-pager > /dev/null 2> /dev/null); then
     aws secretsmanager put-secret-value --secret-id github-trigger-secret --no-cli-pager --secret-string $githubtrigger > /dev/null
