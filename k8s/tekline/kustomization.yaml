@@ -7,5 +7,5 @@ resources:
 configMapGenerator:
   - name: create-namespace-scripts
     files:
-      - sa.yaml
+      - patches/sa.yaml
     behavior: replace
