@@ -59,3 +59,9 @@ echo "Upload public key to github:"
 cat $tempdir/gh-key.pub
 
 rm -rf $tempdir
+
+# aws secretsmanager restore-secret --secret-id github-private-key     --no-cli-pager
+# aws secretsmanager restore-secret --secret-id github-public-key      --no-cli-pager
+# aws secretsmanager restore-secret --secret-id github-known-hosts     --no-cli-pager
+# aws secretsmanager restore-secret --secret-id github-pat             --no-cli-pager
+# aws secretsmanager restore-secret --secret-id github-trigger-secret  --no-cli-pager

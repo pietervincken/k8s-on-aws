@@ -17,16 +17,16 @@ output "cert_manager_iam_role" {
   value = module.cert_manager_irsa_role.iam_role_arn
 }
 
-data "aws_eks_cluster" "this" {
-  name = module.eks.cluster_name
-}
+# data "aws_eks_cluster" "this" {
+#   name = module.eks.cluster_name
+# }
 
 module "cluster_autoscaler_irsa_role" {
   source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
 
   role_name                        = "${local.name}-cluster-autoscaler"
   attach_cluster_autoscaler_policy = true
-  cluster_autoscaler_cluster_ids   = [data.aws_eks_cluster.this.id]
+  cluster_autoscaler_cluster_ids   = [module.eks.cluster_name]
 
   oidc_providers = {
     ex = {

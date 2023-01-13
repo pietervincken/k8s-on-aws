@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # - resources/autoscaler-argoapp.yaml
+  - resources/certmanager-argoapp.yaml
+  # - resources/external-dns-argoapp.yaml
+  # - resources/external-secrets-operator-argoapp.yaml
+  # - resources/renovate-argoapp.yaml
+  # - resources/tekline-argoapp.yaml
+  # - resources/tekton-argoapp.yaml
+  - resources/traefik-argoapp.yaml
+
+namespace: argocd
