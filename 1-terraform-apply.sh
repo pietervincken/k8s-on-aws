@@ -6,3 +6,5 @@ terraform init -backend-config=config.s3.tfbackend
 terraform apply
 terraform output -json > output.json
 cd ..
+
+echo "Update NS records!"
