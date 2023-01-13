@@ -17,10 +17,6 @@ output "cert_manager_iam_role" {
   value = module.cert_manager_irsa_role.iam_role_arn
 }
 
-# data "aws_eks_cluster" "this" {
-#   name = module.eks.cluster_name
-# }
-
 module "cluster_autoscaler_irsa_role" {
   source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
 
@@ -40,21 +36,23 @@ output "cluster_autoscaler_iam_role" {
   value = module.cluster_autoscaler_irsa_role.iam_role_arn
 }
 
-# module "ebs_csi_irsa_role" {
-#   source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+module "ebs_csi_irsa_role" {
+  source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
 
-#   role_name             = "ebs-csi"
-#   attach_ebs_csi_policy = true
+  role_name             = "ebs-csi"
+  attach_ebs_csi_policy = true
 
-#   oidc_providers = {
-#     ex = {
-#       provider_arn               = module.eks.oidc_provider_arn
-#       namespace_service_accounts = ["kube-system:ebs-csi-controller-sa"]
-#     }
-#   }
+  oidc_providers = {
+    ex = {
+      provider_arn               = module.eks.oidc_provider_arn
+      namespace_service_accounts = ["kube-system:ebs-csi-controller-sa"]
+    }
+  }
+}
 
-#   tags = local.tags
-# }
+output "ebs_csi_iam_role" {
+  value = module.ebs_csi_irsa_role.iam_role_arn
+}
 
 # module "external_dns_irsa_role" {
 #   source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"

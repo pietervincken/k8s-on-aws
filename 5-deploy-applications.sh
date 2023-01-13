@@ -25,4 +25,6 @@ kubectl apply -k k8s/external-dns
 kubectl apply -k ../renovate-tekton-argo-talk/k8s/argocd # first attempt will fail due to missing crds
 kubectl apply -k ../renovate-tekton-argo-talk/k8s/argocd
 
+kubectl apply -k k8s/aws-ebs-csi-driver
+
 kubectl apply -k k8s/argoapps

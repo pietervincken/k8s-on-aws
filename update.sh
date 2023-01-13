@@ -15,6 +15,7 @@ get_latest_release() {
 # helm repo add external-secrets https://charts.external-secrets.io
 # helm repo add grafana https://grafana.github.io/helm-charts
 # helm repo add autoscaler https://kubernetes.github.io/autoscaler
+helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver
 helm repo update
 
 cd k8s/external-secrets-operator
@@ -107,6 +108,16 @@ cd ../../../..
 echo "Upgraded autoscaler"
 
 
+cd k8s/aws-ebs-csi-driver/
+rm -rf resources/render
+mkdir -p resources/render
+helm template aws-ebs-csi-driver aws-ebs-csi-driver/aws-ebs-csi-driver\
+    --namespace kube-system \
+    | yq -s '"resources/render/" + .metadata.name + "-" + .kind + ".yml"' -
+cd resources/render/
+kustomize create app --recursive --autodetect
+cd ../../../..
+echo "Upgraded aws-ebs-csi-driver"
 
 # Cleanup
 rm -rf $tempdir
