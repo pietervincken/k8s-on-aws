@@ -75,3 +75,7 @@ resource "aws_iam_policy_attachment" "kaniko" {
 output "tekline_iam_role" {
   value = aws_iam_role.kaniko.arn
 }
+
+output "ecr_repo_url" {
+  value = aws_ecr_repository.this.repository_url
+}

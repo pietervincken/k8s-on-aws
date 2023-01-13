@@ -55,3 +55,11 @@ if [ -z $tekline_iam_role ]; then
     exit 1
 fi
 yq -i ".metadata.annotations.[\"eks.amazonaws.com/role-arn\"] |= \"$tekline_iam_role\"" k8s/tekline/patches/sa.yaml 
+
+## Set ecr repository url
+ecr_repo_url=$(cat terraform/output.json| jq --raw-output '.ecr_repo_url.value' | sed 's|/.*||')
+if [ -z $ecr_repo_url ]; then
+    echo "Could not find ecr_repo_url. Stopping!"
+    exit 1
+fi
+yq -i ".[0].value |= \"$ecr_repo_url\"" k8s/tekline/patches/delegate-pipeline-registry.yaml
