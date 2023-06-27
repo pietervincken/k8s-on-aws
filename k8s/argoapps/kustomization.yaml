@@ -6,6 +6,7 @@ resources:
   - resources/certmanager-argoapp.yaml
   - resources/external-dns-argoapp.yaml
   - resources/external-secrets-operator-argoapp.yaml
+  # - resources/monitoring-argoapp.yaml
   - resources/renovate-argoapp.yaml
   - resources/tekline-argoapp.yaml
   - resources/tekton-argoapp.yaml
