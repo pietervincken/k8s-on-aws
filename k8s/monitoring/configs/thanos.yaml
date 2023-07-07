@@ -2,4 +2,4 @@ type: S3
 config:
   bucket: "renovate-talk-thanos"
   aws_sdk_auth: true
-  endpoint: "com.amazonaws.eu-west-1.s3"
+  endpoint: "s3.eu-west-1.amazonaws.com"

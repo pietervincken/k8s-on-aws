@@ -35,7 +35,7 @@ data "aws_iam_policy_document" "thanos_assume" {
       test = "StringEquals"
 
       variable = "${module.eks.oidc_provider}:sub"
-      values   = ["system:serviceaccount:monitoring:thanos"]
+      values   = ["system:serviceaccount:monitoring:prometheus-k8s"]
     }
 
     condition {
