@@ -1,0 +1,6 @@
+- op: add
+  path: /spec/thanos
+  value:
+    objectStorageConfig:
+      key: thanos.yaml
+      name:

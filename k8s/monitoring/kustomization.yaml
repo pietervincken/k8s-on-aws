@@ -9,3 +9,5 @@ secretGenerator:
     namespace: monitoring
     files:
       - "configs/thanos.yaml"
+    options:
+      disableNameSuffixHash: true

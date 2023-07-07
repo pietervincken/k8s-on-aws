@@ -61,3 +61,9 @@ resource "aws_iam_role_policy_attachment" "thanos" {
   role       = aws_iam_role.thanos.name
   policy_arn = aws_iam_policy.thanos.arn
 }
+
+resource "aws_vpc_endpoint" "s3" {
+  vpc_id            = module.vpc.vpc_id
+  service_name      = "com.amazonaws.eu-west-1.s3"
+  vpc_endpoint_type = "Gateway"
+}
