@@ -1,0 +1,4 @@
+type: S3
+config:
+  bucket: "renovate-talk-thanos"
+  aws_sdk_auth: true

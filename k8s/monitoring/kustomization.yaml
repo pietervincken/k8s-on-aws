@@ -3,3 +3,9 @@ kind: Kustomization
 
 resources:
   - https://github.com/pietervincken/renovate-tekton-argo-talk.git//k8s/monitoring?ref=main
+
+secretGenerator:
+  - name: thanos-objectstorage
+    namespace: monitoring
+    files:
+      - "configs/thanos.yaml"

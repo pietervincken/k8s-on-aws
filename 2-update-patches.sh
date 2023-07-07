@@ -66,3 +66,11 @@ yq -i ".[0].value |= \"$ecr_repo_url\"" k8s/tekline/patches/delegate-pipeline-re
 
 # ## Set ecr repository url in demo-app
 # yq -i ".[0].value.images.[0] |= \"renovate-talk-java-demo-app=$ecr_repo_url/renovate-talk-java-demo-app\"" k8s/argoapps/patches/demo-app-images-registry.yaml
+
+## Set thanos bucket name
+thanos_bucket=$(cat terraform/output.json| jq --raw-output '.thanos_bucket.value' | sed 's|/.*||')
+if [ -z $thanos_bucket ]; then
+    echo "Could not find thanos_bucket. Stopping!"
+    exit 1
+fi
+yq -i ".config.bucket |= \"$thanos_bucket\"" "k8s/monitoring/configs/thanos.yaml"

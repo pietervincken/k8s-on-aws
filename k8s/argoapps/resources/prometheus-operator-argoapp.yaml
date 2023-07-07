@@ -1,18 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: monitoring
+  name: prometheus-operator
   annotations:
     argocd.argoproj.io/manifest-generate-paths: .
 spec:
   project: default
   source:
-    repoURL: git@github.com:pietervincken/renovate-talk-aws.git
+    repoURL: git@github.com:pietervincken/renovate-tekton-argo-talk.git
     targetRevision: main
-    path: k8s/monitoring
+    path: k8s/prometheus-operator
   destination:
     server: https://kubernetes.default.svc
-    namespace: monitoring
+    namespace: prometheus-operator
   syncPolicy:
     automated:
       prune: true
