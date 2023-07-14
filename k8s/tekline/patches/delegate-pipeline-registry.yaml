@@ -1,4 +1,3 @@
 - op: add
   path: /spec/params/4/default
   value: 930970667460.dkr.ecr.eu-west-1.amazonaws.com
-# value: renovatetalkacr.azurecr.io
