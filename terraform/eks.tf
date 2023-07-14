@@ -22,7 +22,12 @@ module "eks" {
       #   capacity_type  = "SPOT" # TODO cool addition!
     }
   }
+
+  tags = data.aws_default_tags.default.tags
 }
+
+data "aws_default_tags" "default" {}
+
 
 output "eks_name" {
   value = local.name
