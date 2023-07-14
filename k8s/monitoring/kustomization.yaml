@@ -4,6 +4,17 @@ kind: Kustomization
 resources:
   - https://github.com/pietervincken/renovate-tekton-argo-talk.git//k8s/monitoring?ref=main
 
+patches:
+  - target:
+      kind: ServiceAccount
+      name: thanos-store
+    path: patches/thanos-sa-arn.yaml
+
+  - target:
+      kind: ServiceAccount
+      name: prometheus-k8s
+    path: patches/thanos-sa-arn.yaml
+
 secretGenerator:
   - name: thanos-objectstorage
     namespace: monitoring

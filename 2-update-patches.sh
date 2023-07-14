@@ -74,3 +74,11 @@ if [ -z $thanos_bucket ]; then
     exit 1
 fi
 yq -i ".config.bucket |= \"$thanos_bucket\"" "k8s/monitoring/configs/thanos.yaml"
+
+## Set thanos iam role arn
+thanos_iam_role_arn=$(cat terraform/output.json| jq --raw-output '.thanos_iam_role_arn.value')
+if [ -z $thanos_iam_role_arn ]; then
+    echo "Could not find thanos_iam_role_arn. Stopping!"
+    exit 1
+fi
+yq -i ".[0].value |= \"$thanos_iam_role_arn\"" "k8s/monitoring/patches/thanos-sa-arn.yaml"

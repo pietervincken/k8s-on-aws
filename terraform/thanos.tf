@@ -37,7 +37,6 @@ data "aws_iam_policy_document" "thanos_assume" {
       variable = "${module.eks.oidc_provider}:sub"
       values = [
         "system:serviceaccount:monitoring:prometheus-k8s",
-        "system:serviceaccount:monitoring:thanos-query",
         "system:serviceaccount:monitoring:thanos-store"
       ]
     }
@@ -70,4 +69,8 @@ resource "aws_vpc_endpoint" "s3" {
   vpc_id            = module.vpc.vpc_id
   service_name      = "com.amazonaws.eu-west-1.s3"
   vpc_endpoint_type = "Gateway"
+}
+
+output "thanos_iam_role_arn" {
+  value = aws_iam_role.thanos.arn
 }
