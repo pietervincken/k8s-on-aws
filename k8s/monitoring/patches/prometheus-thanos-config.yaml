@@ -3,4 +3,4 @@
   value:
     objectStorageConfig:
       key: thanos.yaml
-      name:
+      name: thanos-objectstorage
