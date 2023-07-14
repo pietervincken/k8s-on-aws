@@ -10,6 +10,8 @@ resources:
 - ebs-csi-driver-test-ConfigMap.yml
 - ebs-csi-driver-test-Pod.yml
 - ebs-csi-driver-test-ServiceAccount.yml
+- ebs-csi-leases-role-Role.yml
+- ebs-csi-leases-rolebinding-RoleBinding.yml
 - ebs-csi-node-DaemonSet.yml
 - ebs-csi-node-getter-binding-ClusterRoleBinding.yml
 - ebs-csi-node-role-ClusterRole.yml

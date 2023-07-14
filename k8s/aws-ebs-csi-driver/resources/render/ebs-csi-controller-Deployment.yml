@@ -9,8 +9,8 @@ metadata:
   labels:
     app.kubernetes.io/name: aws-ebs-csi-driver
     app.kubernetes.io/instance: aws-ebs-csi-driver
-    helm.sh/chart: aws-ebs-csi-driver-2.15.1
-    app.kubernetes.io/version: "1.14.1"
+    helm.sh/chart: aws-ebs-csi-driver-2.21.0
+    app.kubernetes.io/version: "1.21.0"
     app.kubernetes.io/component: csi-driver
     app.kubernetes.io/managed-by: Helm
 spec:
@@ -30,8 +30,8 @@ spec:
         app: ebs-csi-controller
         app.kubernetes.io/name: aws-ebs-csi-driver
         app.kubernetes.io/instance: aws-ebs-csi-driver
-        helm.sh/chart: aws-ebs-csi-driver-2.15.1
-        app.kubernetes.io/version: "1.14.1"
+        helm.sh/chart: aws-ebs-csi-driver-2.21.0
+        app.kubernetes.io/version: "1.21.0"
         app.kubernetes.io/component: csi-driver
         app.kubernetes.io/managed-by: Helm
     spec:
@@ -73,12 +73,13 @@ spec:
         runAsUser: 1000
       containers:
         - name: ebs-plugin
-          image: public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.14.1
+          image: public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.21.0
           imagePullPolicy: IfNotPresent
           args:
             - controller
             - --endpoint=$(CSI_ENDPOINT)
-            - --logtostderr
+            - --logging-format=text
+            - --user-agent-extra=helm
             - --v=2
           env:
             - name: CSI_ENDPOINT
@@ -105,7 +106,6 @@ spec:
                   name: aws-meta
                   key: endpoint
                   optional: true
-          envFrom:
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
@@ -131,7 +131,6 @@ spec:
             failureThreshold: 5
           resources:
             limits:
-              cpu: 100m
               memory: 256Mi
             requests:
               cpu: 10m
@@ -140,7 +139,7 @@ spec:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
         - name: csi-provisioner
-          image: k8s.gcr.io/sig-storage/csi-provisioner:v3.1.0
+          image: public.ecr.aws/eks-distro/kubernetes-csi/external-provisioner:v3.5.0-eks-1-27-7
           imagePullPolicy: IfNotPresent
           args:
             - --csi-address=$(ADDRESS)
@@ -152,13 +151,11 @@ spec:
           env:
             - name: ADDRESS
               value: /var/lib/csi/sockets/pluginproxy/csi.sock
-          envFrom:
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
           resources:
             limits:
-              cpu: 100m
               memory: 256Mi
             requests:
               cpu: 10m
@@ -167,7 +164,7 @@ spec:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
         - name: csi-attacher
-          image: k8s.gcr.io/sig-storage/csi-attacher:v3.4.0
+          image: public.ecr.aws/eks-distro/kubernetes-csi/external-attacher:v4.3.0-eks-1-27-7
           imagePullPolicy: IfNotPresent
           args:
             - --csi-address=$(ADDRESS)
@@ -176,13 +173,11 @@ spec:
           env:
             - name: ADDRESS
               value: /var/lib/csi/sockets/pluginproxy/csi.sock
-          envFrom:
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
           resources:
             limits:
-              cpu: 100m
               memory: 256Mi
             requests:
               cpu: 10m
@@ -191,22 +186,21 @@ spec:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
         - name: csi-resizer
-          image: k8s.gcr.io/sig-storage/csi-resizer:v1.4.0
+          image: public.ecr.aws/eks-distro/kubernetes-csi/external-resizer:v1.8.0-eks-1-27-7
           imagePullPolicy: IfNotPresent
           args:
             - --csi-address=$(ADDRESS)
             - --v=2
             - --handle-volume-inuse-error=false
+            - --leader-election=true
           env:
             - name: ADDRESS
               value: /var/lib/csi/sockets/pluginproxy/csi.sock
-          envFrom:
           volumeMounts:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
           resources:
             limits:
-              cpu: 100m
               memory: 256Mi
             requests:
               cpu: 10m
@@ -215,17 +209,15 @@ spec:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
         - name: liveness-probe
-          image: k8s.gcr.io/sig-storage/livenessprobe:v2.6.0
+          image: public.ecr.aws/eks-distro/kubernetes-csi/livenessprobe:v2.10.0-eks-1-27-7
           imagePullPolicy: IfNotPresent
           args:
             - --csi-address=/csi/csi.sock
-          envFrom:
           volumeMounts:
             - name: socket-dir
               mountPath: /csi
           resources:
             limits:
-              cpu: 100m
               memory: 256Mi
             requests:
               cpu: 10m
