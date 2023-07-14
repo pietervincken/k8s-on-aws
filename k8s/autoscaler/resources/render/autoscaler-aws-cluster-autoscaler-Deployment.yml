@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/instance: "autoscaler"
     app.kubernetes.io/name: "aws-cluster-autoscaler"
     app.kubernetes.io/managed-by: "Helm"
-    helm.sh/chart: "cluster-autoscaler-9.21.1"
+    helm.sh/chart: "cluster-autoscaler-9.29.1"
   name: autoscaler-aws-cluster-autoscaler
   namespace: kube-system
 spec:
@@ -27,7 +27,7 @@ spec:
       dnsPolicy: "ClusterFirst"
       containers:
         - name: aws-cluster-autoscaler
-          image: "k8s.gcr.io/autoscaling/cluster-autoscaler:v1.23.0"
+          image: "registry.k8s.io/autoscaling/cluster-autoscaler:v1.27.2"
           imagePullPolicy: "IfNotPresent"
           command:
             - ./cluster-autoscaler
