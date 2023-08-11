@@ -15,7 +15,7 @@ get_latest_release() {
 # helm repo add external-secrets https://charts.external-secrets.io
 # helm repo add grafana https://grafana.github.io/helm-charts
 # helm repo add autoscaler https://kubernetes.github.io/autoscaler
-helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+# helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver
 helm repo update
 
 cd k8s/external-secrets-operator
@@ -29,54 +29,6 @@ cd resources/render
 kustomize create app --recursive --autodetect
 cd ../../../..
 echo "Upgraded external-secrets-operator"
-
-# argoCDVersion=$(get_latest_release "argoproj/argo-cd")
-# cd k8s/argocd
-# rm -rf resources/render/
-# mkdir -p resources/render
-# kubectl create ns argocd -o yaml --dry-run=client > resources/render/ns.yaml
-# curl -s https://raw.githubusercontent.com/argoproj/argo-cd/$argoCDVersion/manifests/install.yaml | yq -s '"resources/render/" + .metadata.name + "-" + .kind + ".yml"' -
-# cd resources/render/
-# kustomize create app --recursive --autodetect
-# cd ../../../..
-# echo "Upgraded argocd to $argoCDVersion"
-
-# cd k8s/tekton
-# rm -rf resources/render/
-# mkdir -p resources/render
-# curl -s https://storage.googleapis.com/tekton-releases/operator/latest/release.yaml | yq -s '"resources/render/" + .metadata.name + "-" + .kind + ".yml"' -
-# curl -s https://raw.githubusercontent.com/tektoncd/operator/main/config/crs/kubernetes/config/all/operator_v1alpha1_config_cr.yaml | yq -s '"resources/render/" + .metadata.name + "-" + .kind + ".yml"' -
-# rm .yml
-# cd resources/render/
-# kustomize create app --recursive --autodetect
-# kustomize edit set namespace tekton-operator
-# cd ../../../..
-# echo "Upgraded tekton"
-
-# certManagerVersion=$(get_latest_release "cert-manager/cert-manager")
-# cd k8s/certmanager
-# rm -rf resources/render/
-# mkdir -p resources/render
-# curl -sL https://github.com/cert-manager/cert-manager/releases/download/$certManagerVersion/cert-manager.yaml | yq -s '"resources/render/" + .metadata.name + "-" + .kind + ".yml"' -
-# cd resources/render/
-# kustomize create app --recursive --autodetect
-# cd ../../../..
-# echo "Upgraded certmanager to $certManagerVersion"
-
-# cd k8s/traefik
-# rm -rf resources/render/
-# mkdir -p resources/render
-# helm template traefik traefik/traefik \
-#   -n traefik \
-#   --set globalArguments= \
-#   --set providers.kubernetesIngress.publishedService.enabled=true \
-#   | yq -s '"resources/render/" + .metadata.name + "-" + .kind + ".yml"' -
-# curl -sL https://raw.githubusercontent.com/traefik/traefik/master/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml  | yq -s '"resources/render/" + .metadata.name + "-" + .kind + ".yml"' -
-# curl -sL https://raw.githubusercontent.com/traefik/traefik/master/docs/content/reference/dynamic-configuration/kubernetes-crd-rbac.yml | yq -s '"resources/render/" + .metadata.name + "-" + .kind + ".yml"' -
-# cd resources/render/
-# kustomize create app --recursive --autodetect
-# cd ../../../..
-# echo "Upgraded traefik"
 
 cd k8s/external-dns/
 externalDNSOperatorVersion=$(get_latest_release "kubernetes-sigs/external-dns")
@@ -106,7 +58,6 @@ cd resources/render/
 kustomize create app --recursive --autodetect
 cd ../../../..
 echo "Upgraded autoscaler"
-
 
 cd k8s/aws-ebs-csi-driver/
 rm -rf resources/render

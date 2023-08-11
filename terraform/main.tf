@@ -16,7 +16,6 @@ provider "aws" {
       owner   = "pieter.vincken@ordina.be"
     }
   }
-
 }
 
 locals {

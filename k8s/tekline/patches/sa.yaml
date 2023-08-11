@@ -3,4 +3,4 @@ kind: ServiceAccount
 metadata:
   name: tekline
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::930970667460:role/kaniko
+    eks.amazonaws.com/role-arn: arn:aws:iam::831947081981:role/kaniko
