@@ -7,6 +7,12 @@ kubectl delete tasks --all -A
 kubectl patch app traefik  -p '{"metadata": {"finalizers": ["resources-finalizer.argocd.argoproj.io"]}}' --type merge -n argocd
 kubectl delete app traefik -n argocd
 
+kubectl patch app monitoring  -p '{"metadata": {"finalizers": ["resources-finalizer.argocd.argoproj.io"]}}' --type merge -n argocd
+kubectl delete app monitoring -n argocd
+
+kubectl patch app dashboarding  -p '{"metadata": {"finalizers": ["resources-finalizer.argocd.argoproj.io"]}}' --type merge -n argocd
+kubectl delete app dashboarding -n argocd
+
 apps=$(kubectl get application -n argocd -o name | xargs -I{} basename {})
 
 

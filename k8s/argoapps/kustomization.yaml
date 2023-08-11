@@ -14,6 +14,6 @@ resources:
   # - resources/renovate-argoapp.yaml
   # - resources/tekline-argoapp.yaml
   # - resources/tekton-argoapp.yaml
-  - https://github.com/pietervincken/renovate-talk-java-demo-app-deploy.git//argocd-aws?ref=main
+  # - https://github.com/pietervincken/renovate-talk-java-demo-app-deploy.git//argocd-aws?ref=main
 
 namespace: argocd
