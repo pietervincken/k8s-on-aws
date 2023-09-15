@@ -9,8 +9,8 @@ metadata:
   labels:
     app.kubernetes.io/name: aws-ebs-csi-driver
     app.kubernetes.io/instance: aws-ebs-csi-driver
-    helm.sh/chart: aws-ebs-csi-driver-2.21.0
-    app.kubernetes.io/version: "1.21.0"
+    helm.sh/chart: aws-ebs-csi-driver-2.22.0
+    app.kubernetes.io/version: "1.22.0"
     app.kubernetes.io/component: csi-driver
     app.kubernetes.io/managed-by: Helm
 spec:
@@ -29,8 +29,8 @@ spec:
         app: ebs-csi-node
         app.kubernetes.io/name: aws-ebs-csi-driver
         app.kubernetes.io/instance: aws-ebs-csi-driver
-        helm.sh/chart: aws-ebs-csi-driver-2.21.0
-        app.kubernetes.io/version: "1.21.0"
+        helm.sh/chart: aws-ebs-csi-driver-2.22.0
+        app.kubernetes.io/version: "1.22.0"
         app.kubernetes.io/component: csi-driver
         app.kubernetes.io/managed-by: Helm
     spec:
@@ -56,7 +56,7 @@ spec:
         runAsUser: 0
       containers:
         - name: ebs-plugin
-          image: public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.21.0
+          image: public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.22.0
           imagePullPolicy: IfNotPresent
           args:
             - node
@@ -100,7 +100,7 @@ spec:
             privileged: true
             readOnlyRootFilesystem: true
         - name: node-driver-registrar
-          image: public.ecr.aws/eks-distro/kubernetes-csi/node-driver-registrar:v2.8.0-eks-1-27-7
+          image: public.ecr.aws/eks-distro/kubernetes-csi/node-driver-registrar:v2.8.0-eks-1-27-9
           imagePullPolicy: IfNotPresent
           args:
             - --csi-address=$(ADDRESS)
@@ -137,7 +137,7 @@ spec:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
         - name: liveness-probe
-          image: public.ecr.aws/eks-distro/kubernetes-csi/livenessprobe:v2.10.0-eks-1-27-7
+          image: public.ecr.aws/eks-distro/kubernetes-csi/livenessprobe:v2.10.0-eks-1-27-9
           imagePullPolicy: IfNotPresent
           args:
             - --csi-address=/csi/csi.sock
