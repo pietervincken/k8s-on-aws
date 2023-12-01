@@ -1,5 +1,5 @@
 resource "aws_ecr_repository" "this" {
-  name                 = "renovate-talk-java-demo-app"
+  name                 = "k8sonaws-java-demo-app"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
