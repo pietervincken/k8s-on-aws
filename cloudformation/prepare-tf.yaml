@@ -1,6 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: Terraform backend creation for renovate talk Terraform state.
-
+Description: Terraform backend creation for k8sonaws
 Resources:
   k8sonawsbucket:
     Type: "AWS::S3::Bucket"
