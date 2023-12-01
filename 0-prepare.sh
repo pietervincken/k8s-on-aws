@@ -7,10 +7,10 @@ fi
 
 aws cloudformation deploy \
     --template-file cloudformation/prepare-tf.yaml \
-    --stack-name renovatetalkstate \
-    --tags owner=pieter.vincken@ordina.be project=renovatetalk
+    --stack-name k8sonaws \
+    --tags owner=pieter.vincken@ordina.be project=k8sonaws
 
-output=$(aws cloudformation describe-stacks --stack-name renovatetalkstate)
+output=$(aws cloudformation describe-stacks --stack-name k8sonaws)
 bucketname=$(echo $output | jq --raw-output '.Stacks[0].Outputs[] | select(.OutputKey=="bucketname") | .OutputValue')
 lockname=$(echo $output | jq --raw-output '.Stacks[0].Outputs[] | select(.OutputKey=="locktable") | .OutputValue')
 

@@ -12,7 +12,7 @@ terraform {
 provider "aws" {
   default_tags {
     tags = {
-      project = "renovatetalk"
+      project = "k8sonaws"
       owner   = "pieter.vincken@ordina.be"
     }
   }

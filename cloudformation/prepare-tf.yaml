@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: "2010-09-09"
 Description: Terraform backend creation for renovate talk Terraform state.
 
 Resources:
-  renovatetalkstatebucket:
+  k8sonawsbucket:
     Type: "AWS::S3::Bucket"
     Properties:
       PublicAccessBlockConfiguration:
@@ -14,8 +14,8 @@ Resources:
         - Key: "owner"
           Value: "pieter.vincken@ordina.be"
         - Key: "project"
-          Value: "renovatetalk"
-  renovatetalklock:
+          Value: "k8sonaws"
+  k8sonawslock:
     Type: AWS::DynamoDB::Table
     Properties:
       AttributeDefinitions:
@@ -29,12 +29,12 @@ Resources:
         - Key: "owner"
           Value: "pieter.vincken@ordina.be"
         - Key: "project"
-          Value: "renovatetalk"
+          Value: "k8sonaws"
 Outputs:
   bucketname:
     Description: Name of the state bucket
-    Value: !Ref renovatetalkstatebucket
+    Value: !Ref k8sonawsbucket
 
   locktable:
     Description: Dynamo tablename for the lock
-    Value: !Ref renovatetalklock
+    Value: !Ref k8sonawslock
