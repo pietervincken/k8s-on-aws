@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: tekline
-  annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::831947081981:role/kaniko

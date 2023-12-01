@@ -48,22 +48,6 @@ if [ -z $ebs_csi_iam_role ]; then
 fi
 yq -i ".[0].value |= \"$ebs_csi_iam_role\"" k8s/aws-ebs-csi-driver/patches/sa-arn.yaml 
 
-## Set IAM role on tekline patch
-tekline_iam_role=$(cat terraform/output.json| jq --raw-output '.tekline_iam_role.value')
-if [ -z $tekline_iam_role ]; then
-    echo "Could not find tekline_iam_role. Stopping!"
-    exit 1
-fi
-yq -i ".metadata.annotations.[\"eks.amazonaws.com/role-arn\"] |= \"$tekline_iam_role\"" k8s/tekline/patches/sa.yaml 
-
-## Set ecr repository url
-ecr_repo_url=$(cat terraform/output.json| jq --raw-output '.ecr_repo_url.value' | sed 's|/.*||')
-if [ -z $ecr_repo_url ]; then
-    echo "Could not find ecr_repo_url. Stopping!"
-    exit 1
-fi
-yq -i ".[0].value |= \"$ecr_repo_url\"" k8s/tekline/patches/delegate-pipeline-registry.yaml
-
 ## Set thanos bucket name
 thanos_bucket=$(cat terraform/output.json| jq --raw-output '.thanos_bucket.value' | sed 's|/.*||')
 if [ -z $thanos_bucket ]; then

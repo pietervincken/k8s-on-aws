@@ -12,5 +12,5 @@ namespace: external-secrets
 patches:
   - target:
       kind: ServiceAccount
-      name: renovate-talk-secret-store
+      name: secret-store
     path: patches/sa-arn.yaml

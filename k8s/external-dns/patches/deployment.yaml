@@ -3,4 +3,4 @@
   value: --provider=aws
 - op: add
   path: /spec/template/spec/containers/0/args/-
-  value: --txt-owner-id=renovate-talk
+  value: --txt-owner-id=k8s-on-aws

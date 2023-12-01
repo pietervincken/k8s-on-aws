@@ -1,5 +1,5 @@
 type: S3
 config:
-  bucket: "renovate-talk-thanos"
+  bucket: "k8s-on-aws-thanos"
   aws_sdk_auth: true
   endpoint: "s3.eu-west-1.amazonaws.com"
