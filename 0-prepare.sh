@@ -5,6 +5,11 @@ if [ -z $AWS_REGION ]; then
     exit 1
 fi
 
+if [ -z $AWS_PROFILE ]; then
+    echo "Could not find AWS_PROFILE. Stopping!"
+    exit 1
+fi
+
 aws cloudformation deploy \
     --template-file cloudformation/prepare-tf.yaml \
     --stack-name k8sonaws \

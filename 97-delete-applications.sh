@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ -z $AWS_PROFILE ]; then
+    echo "Could not find AWS_PROFILE. Stopping!"
+    exit 1
+fi
+
 kubectl delete pipelineruns --all -A
 kubectl delete pipelines --all -A
 kubectl delete tasks --all -A

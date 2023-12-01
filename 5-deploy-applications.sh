@@ -12,6 +12,11 @@ if [ -z $AWS_REGION ]; then
     exit 1
 fi
 
+if [ -z $AWS_PROFILE ]; then
+    echo "Could not find AWS_PROFILE. Stopping!"
+    exit 1
+fi
+
 aws eks update-kubeconfig --region $AWS_REGION --name $eks_name
 
 kubectl apply -k k8s/autoscaler

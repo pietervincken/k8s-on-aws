@@ -2,6 +2,11 @@
 
 set -e pipefail
 
+if [ -z $AWS_PROFILE ]; then
+    echo "Could not find AWS_PROFILE. Stopping!"
+    exit 1
+fi
+
 if [ -z $githubmail ]; then
     echo "Could not find githubmail. Stopping!"
     exit 1
@@ -42,13 +47,6 @@ else
     aws secretsmanager create-secret --name github-known-hosts --no-cli-pager --secret-binary fileb://$tempdir/known_hosts > /dev/null
 fi
 
-# Since this is a personal token. Wait until needed. 
-if ( aws secretsmanager describe-secret --secret-id github-pat --no-cli-pager > /dev/null 2> /dev/null); then
-    aws secretsmanager put-secret-value --secret-id github-pat --no-cli-pager --secret-string $githubpat > /dev/null
-else
-    aws secretsmanager create-secret --name github-pat --no-cli-pager --secret-string $githubpat > /dev/null
-fi
-
 if ( aws secretsmanager describe-secret --secret-id github-trigger-secret --no-cli-pager > /dev/null 2> /dev/null); then
     aws secretsmanager put-secret-value --secret-id github-trigger-secret --no-cli-pager --secret-string $githubtrigger > /dev/null
 else
@@ -63,5 +61,4 @@ rm -rf $tempdir
 # aws secretsmanager restore-secret --secret-id github-private-key     --no-cli-pager
 # aws secretsmanager restore-secret --secret-id github-public-key      --no-cli-pager
 # aws secretsmanager restore-secret --secret-id github-known-hosts     --no-cli-pager
-# aws secretsmanager restore-secret --secret-id github-pat             --no-cli-pager
 # aws secretsmanager restore-secret --secret-id github-trigger-secret  --no-cli-pager
