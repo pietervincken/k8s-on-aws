@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "main" {
-  name = "k8sonaws.pietervincken.com"
+  name = "${local.name}.pietervincken.com"
 
   force_destroy = true
 }

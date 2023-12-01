@@ -1,0 +1,6 @@
+- op: replace
+  path: /spec/tls/0/hosts/0
+  value: argocd.k8s-on-aws.pietervincken.com
+- op: replace
+  path: /spec/rules/0/host
+  value: argocd.k8s-on-aws.pietervincken.com
