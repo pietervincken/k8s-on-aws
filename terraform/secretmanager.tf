@@ -40,7 +40,7 @@ resource "aws_iam_role" "external_secrets_operator" {
         Action = "sts:AssumeRoleWithWebIdentity"
         Condition = {
           StringEquals = {
-            "${module.eks.oidc_provider}:sub" = "system:serviceaccount:external-secrets:renovate-talk-secret-store"
+            "${module.eks.oidc_provider}:sub" = "system:serviceaccount:external-secrets:secret-store"
             "${module.eks.oidc_provider}:aud" = "sts.amazonaws.com"
           }
         }

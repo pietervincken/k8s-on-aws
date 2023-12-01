@@ -19,6 +19,6 @@ provider "aws" {
 }
 
 locals {
-  name   = "renovate-talk"
+  name   = "k8s-on-aws"
   region = "eu-west-1"
 }

@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "main" {
-  name = "renovate-talk.pietervincken.com"
+  name = "k8sonaws.pietervincken.com"
 
   force_destroy = true
 }
