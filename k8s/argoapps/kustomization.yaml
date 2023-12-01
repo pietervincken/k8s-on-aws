@@ -11,9 +11,5 @@ resources:
   - resources/monitoring-argoapp.yaml
   - resources/prometheus-operator-argoapp.yaml
   - resources/traefik-argoapp.yaml
-  # - resources/renovate-argoapp.yaml
-  # - resources/tekline-argoapp.yaml
-  # - resources/tekton-argoapp.yaml
-  # - https://github.com/pietervincken/renovate-talk-java-demo-app-deploy.git//argocd-aws?ref=main
 
 namespace: argocd
