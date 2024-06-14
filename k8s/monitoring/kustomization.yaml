@@ -15,6 +15,11 @@ patches:
       name: prometheus-k8s
     path: patches/thanos-sa-arn.yaml
 
+  - target:
+      kind: PodDisruptionBudget
+      name: prometheus-k8s
+    path: patches/prometheus-k8s.yaml
+
 secretGenerator:
   - name: thanos-objectstorage
     namespace: monitoring
