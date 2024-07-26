@@ -25,5 +25,3 @@ echo "bucket                = \"$bucketname\""       >> terraform/config.s3.tfba
 echo "dynamodb_table        = \"$lockname\""         >> terraform/config.s3.tfbackend
 echo "region                = \"$AWS_REGION\""       >> terraform/config.s3.tfbackend # TODO maybe make output from CF as well.
 echo 'key                   = "terraform.tfstate"'   >> terraform/config.s3.tfbackend
-
-echo "UPDATE PAT IF NEEDED!!!"

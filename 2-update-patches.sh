@@ -40,26 +40,18 @@ if [ -z $cert_manager_iam_role ]; then
 fi
 yq -i ".[0].value |= \"$cert_manager_iam_role\"" k8s/certmanager/patches/sa-arn.yaml 
 
-## Set IAM role on ebs csi driver patch
-ebs_csi_iam_role=$(cat terraform/output.json| jq --raw-output '.ebs_csi_iam_role.value')
-if [ -z $ebs_csi_iam_role ]; then
-    echo "Could not find ebs_csi_iam_role. Stopping!"
-    exit 1
-fi
-yq -i ".[0].value |= \"$ebs_csi_iam_role\"" k8s/aws-ebs-csi-driver/patches/sa-arn.yaml 
+# ## Set thanos bucket name
+# thanos_bucket=$(cat terraform/output.json| jq --raw-output '.thanos_bucket.value' | sed 's|/.*||')
+# if [ -z $thanos_bucket ]; then
+#     echo "Could not find thanos_bucket. Stopping!"
+#     exit 1
+# fi
+# yq -i ".config.bucket |= \"$thanos_bucket\"" "k8s/monitoring/configs/thanos.yaml"
 
-## Set thanos bucket name
-thanos_bucket=$(cat terraform/output.json| jq --raw-output '.thanos_bucket.value' | sed 's|/.*||')
-if [ -z $thanos_bucket ]; then
-    echo "Could not find thanos_bucket. Stopping!"
-    exit 1
-fi
-yq -i ".config.bucket |= \"$thanos_bucket\"" "k8s/monitoring/configs/thanos.yaml"
-
-## Set thanos iam role arn
-thanos_iam_role_arn=$(cat terraform/output.json| jq --raw-output '.thanos_iam_role_arn.value')
-if [ -z $thanos_iam_role_arn ]; then
-    echo "Could not find thanos_iam_role_arn. Stopping!"
-    exit 1
-fi
-yq -i ".[0].value |= \"$thanos_iam_role_arn\"" "k8s/monitoring/patches/thanos-sa-arn.yaml"
+# ## Set thanos iam role arn
+# thanos_iam_role_arn=$(cat terraform/output.json| jq --raw-output '.thanos_iam_role_arn.value')
+# if [ -z $thanos_iam_role_arn ]; then
+#     echo "Could not find thanos_iam_role_arn. Stopping!"
+#     exit 1
+# fi
+# yq -i ".[0].value |= \"$thanos_iam_role_arn\"" "k8s/monitoring/patches/thanos-sa-arn.yaml"

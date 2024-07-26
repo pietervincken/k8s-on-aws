@@ -7,16 +7,6 @@ if [ -z $AWS_PROFILE ]; then
     exit 1
 fi
 
-if [ -z $githubmail ]; then
-    echo "Could not find githubmail. Stopping!"
-    exit 1
-fi
-
-if [ -z $githubpat ]; then
-    echo "Could not find githubpat. Stopping!"
-    exit 1
-fi
-
 if [ -z $githubtrigger ]; then
     echo "Could not find githubtrigger. Stopping!"
     exit 1
@@ -26,7 +16,7 @@ echo "Found all properties. Checking secrets now."
 
 tempdir=$(mktemp -d)
 
-ssh-keygen -t ed25519 -C $githubmail -f $tempdir/gh-key -q -N ""
+ssh-keygen -t ed25519 -C k8sonaws -f $tempdir/gh-key -q -N ""
 ssh-keyscan -t rsa github.com > $tempdir/known_hosts 2> /dev/null
 
 if ( aws secretsmanager describe-secret --secret-id github-private-key --no-cli-pager > /dev/null 2> /dev/null); then

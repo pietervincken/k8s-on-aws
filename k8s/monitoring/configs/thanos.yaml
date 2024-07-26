@@ -1,5 +1,5 @@
 type: S3
 config:
-  bucket: "k8s-on-aws-thanos"
+  bucket: "null"
   aws_sdk_auth: true
   endpoint: "s3.eu-west-1.amazonaws.com"

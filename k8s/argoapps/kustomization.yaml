@@ -2,14 +2,12 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - resources/autoscaler-argoapp.yaml # TODO investigate add-on
-  - resources/aws-ebs-csi-driver.yaml
   - resources/certmanager-argoapp.yaml
-  - resources/dashboarding-argoapp.yaml
   - resources/external-dns-argoapp.yaml
   - resources/external-secrets-operator-argoapp.yaml
-  - resources/grafana-operator-argoapp.yaml
-  - resources/monitoring-argoapp.yaml
-  - resources/prometheus-operator-argoapp.yaml
-  - resources/traefik-argoapp.yaml
+  # - resources/grafana-operator-argoapp.yaml
+  # - resources/dashboarding-argoapp.yaml
+  # - resources/prometheus-operator-argoapp.yaml
+  # - resources/monitoring-argoapp.yaml
 
 namespace: argocd
