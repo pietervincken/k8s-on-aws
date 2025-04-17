@@ -1,6 +1,6 @@
 module "cert_manager_irsa_role" {
   source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "~> 5.41.0"
+  version = "~> 5.55.0"
 
   role_name                     = "${local.name}-cert-manager"
   attach_cert_manager_policy    = true
@@ -20,7 +20,7 @@ output "cert_manager_iam_role" {
 
 module "cluster_autoscaler_irsa_role" {
   source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "~> 5.41.0"
+  version = "~> 5.55.0"
 
   role_name                        = "${local.name}-cluster-autoscaler"
   attach_cluster_autoscaler_policy = true
