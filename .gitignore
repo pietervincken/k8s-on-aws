@@ -39,3 +39,4 @@ terraform/output.json
 temp/
 
 .vscode
+.infracost
